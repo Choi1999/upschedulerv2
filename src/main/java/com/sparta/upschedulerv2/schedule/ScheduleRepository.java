@@ -1,4 +1,6 @@
 package com.sparta.upschedulerv2.schedule;
 
-public class ScheduleRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 }

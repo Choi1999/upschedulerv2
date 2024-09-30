@@ -73,4 +73,5 @@ public class User extends TimeStamp {
     public void addSchedule(Schedule schedule) {
         this.schedules.add(schedule);
     }
+
 }
