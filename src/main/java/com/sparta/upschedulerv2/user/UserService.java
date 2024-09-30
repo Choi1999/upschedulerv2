@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 
 @Service
 public class UserService {
@@ -18,7 +16,6 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
 
     // 유저 생성 (회원가입) - 기본 권한을 ROLE_USER로 설정
     @Transactional
@@ -40,8 +37,8 @@ public class UserService {
                 savedUser.getUsername(),
                 savedUser.getEmail(),
                 savedUser.getRole(),
-                savedUser.getCreatedAt(),  // TimeStamp에서 상속된 createdAt
-                savedUser.getUpdatedAt()   // TimeStamp에서 상속된 updatedAt
+                savedUser.getCreatedAt(),  // TimeStamp에서 상속된 createdAt (LocalDateTime으로 반환됨)
+                savedUser.getUpdatedAt()   // TimeStamp에서 상속된 updatedAt (LocalDateTime으로 반환됨)
         );
     }
 
@@ -55,8 +52,8 @@ public class UserService {
                 user.getUsername(),
                 user.getEmail(),
                 user.getRole(),
-                user.getCreatedAt(),  // TimeStamp에서 상속된 createdAt
-                user.getUpdatedAt()   // TimeStamp에서 상속된 updatedAt
+                user.getCreatedAt(),  // LocalDateTime 반환
+                user.getUpdatedAt()   // LocalDateTime 반환
         );
     }
 
@@ -69,6 +66,7 @@ public class UserService {
     }
 
     // 비밀번호 변경
+    @Transactional
     public void changePassword(Long userId, String newPassword) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found."));

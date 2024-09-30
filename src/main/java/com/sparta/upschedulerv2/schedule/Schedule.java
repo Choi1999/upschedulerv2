@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "schedules")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // 기본 생성자 보호
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule extends TimeStamp {
 
     @Id
@@ -21,29 +21,27 @@ public class Schedule extends TimeStamp {
     private Long id;
 
     @Column(nullable = false)
-    private String title;  // 일정 제목
+    private String title;
 
     @Column(nullable = false)
-    private String description;  // 일정 설명
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;  // 일정 작성자
+    private User user;
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();  // 댓글 목록
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Manager> managers = new ArrayList<>();  // 매니저 목록
+    private List<Manager> managers = new ArrayList<>();
 
-    // 생성자
     public Schedule(String title, String description, User user) {
         this.title = title;
         this.description = description;
         this.user = user;
     }
 
-    // Getter 메서드
     public Long getId() {
         return id;
     }
@@ -68,18 +66,15 @@ public class Schedule extends TimeStamp {
         return managers;
     }
 
-    // 일정 수정 메서드
     public void updateSchedule(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
-    // 댓글 추가 메서드
     public void addComment(Comment comment) {
         this.comments.add(comment);
     }
 
-    // 매니저 추가 메서드
     public void addManager(Manager manager) {
         this.managers.add(manager);
     }

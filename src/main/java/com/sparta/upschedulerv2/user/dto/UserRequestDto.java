@@ -6,7 +6,6 @@ public class UserRequestDto {
     private String password;
     private String role;
 
-    // Getter 및 Setter
     public String getUsername() {
         return username;
     }
@@ -31,9 +30,11 @@ public class UserRequestDto {
         this.password = password;
     }
 
-
     public String getRole() {
-        return role;  // 추가된 메서드: 유저의 권한을 반환
+        return role;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

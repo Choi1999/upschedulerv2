@@ -4,7 +4,6 @@ public class ScheduleRequestDto {
     private String title;
     private String description;
 
-    // Getter 및 Setter
     public String getTitle() {
         return title;
     }

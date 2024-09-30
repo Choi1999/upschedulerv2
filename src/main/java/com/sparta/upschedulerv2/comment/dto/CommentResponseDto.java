@@ -1,55 +1,39 @@
 package com.sparta.upschedulerv2.comment.dto;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 public class CommentResponseDto {
     private Long id;
     private String content;
     private String username;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public CommentResponseDto(Long id, String content, String username, java.sql.Timestamp createdAt, java.sql.Timestamp updatedAt) {
+    public CommentResponseDto(Long id, String content, String username, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.content = content;
+        this.username = username;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    // Getter 및 Setter
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "comments")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // 기본 생성자 보호
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment extends TimeStamp {
 
     @Id
@@ -19,23 +19,21 @@ public class Comment extends TimeStamp {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", nullable = false)
-    private Schedule schedule;  // 댓글이 속한 일정
+    private Schedule schedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;  // 댓글 작성자
+    private User user;
 
     @Column(nullable = false)
-    private String content;  // 댓글 내용
+    private String content;
 
-    // 생성자
     public Comment(Schedule schedule, User user, String content) {
         this.schedule = schedule;
         this.user = user;
         this.content = content;
     }
 
-    // Getter 메서드
     public Long getId() {
         return id;
     }
@@ -52,7 +50,6 @@ public class Comment extends TimeStamp {
         return content;
     }
 
-    // 댓글 내용 수정 메서드
     public void updateContent(String content) {
         this.content = content;
     }

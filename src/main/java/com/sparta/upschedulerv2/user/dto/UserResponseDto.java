@@ -1,21 +1,18 @@
 package com.sparta.upschedulerv2.user.dto;
 
 import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 public class UserResponseDto {
     private Long id;
     private String username;
     private String email;
     private String role;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-
-    // 기본 생성자 (필수)
-    public UserResponseDto(Long id, String username, String email, String role, java.sql.Timestamp createdAt, java.sql.Timestamp updatedAt) {
-    }
+    private LocalDateTime createdAt;  // LocalDateTime으로 변경
+    private LocalDateTime updatedAt;  // LocalDateTime으로 변경
 
     // 모든 필드를 받는 생성자
-    public UserResponseDto(Long id, String username, String email, String role, Timestamp createdAt, Timestamp updatedAt) {
+    public UserResponseDto(Long id, String username, String email, String role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -57,19 +54,19 @@ public class UserResponseDto {
         this.role = role;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
