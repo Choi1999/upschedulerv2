@@ -43,8 +43,8 @@ public class CommentService {
                 savedComment.getId(),
                 savedComment.getContent(),
                 savedComment.getUser().getUsername(),
-                savedComment.getCreatedAt(),  // LocalDateTime으로 변경
-                savedComment.getUpdatedAt()   // LocalDateTime으로 변경
+                savedComment.getCreatedAt(),
+                savedComment.getUpdatedAt()
         );
     }
 
@@ -58,8 +58,8 @@ public class CommentService {
                 comment.getId(),
                 comment.getContent(),
                 comment.getUser().getUsername(),
-                comment.getCreatedAt(),  // LocalDateTime으로 변경
-                comment.getUpdatedAt()   // LocalDateTime으로 변경
+                comment.getCreatedAt(),
+                comment.getUpdatedAt()
         );
     }
 
@@ -76,8 +76,8 @@ public class CommentService {
                 updatedComment.getId(),
                 updatedComment.getContent(),
                 updatedComment.getUser().getUsername(),
-                updatedComment.getCreatedAt(),  // LocalDateTime으로 변경
-                updatedComment.getUpdatedAt()   // LocalDateTime으로 변경
+                updatedComment.getCreatedAt(),
+                updatedComment.getUpdatedAt()
         );
     }
 
@@ -102,8 +102,8 @@ public class CommentService {
                         comment.getId(),
                         comment.getContent(),
                         comment.getUser().getUsername(),
-                        comment.getCreatedAt(),  // LocalDateTime
-                        comment.getUpdatedAt()   // LocalDateTime
+                        comment.getCreatedAt(),
+                        comment.getUpdatedAt()
                 ))
                 .collect(Collectors.toList());
     }
