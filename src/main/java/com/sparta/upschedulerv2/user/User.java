@@ -59,6 +59,9 @@ public class User extends TimeStamp {
     public String getRole() {
         return role;
     }
+    public String getPassword() {
+        return role;
+    }
 
     public List<Schedule> getSchedules() {
         return schedules;

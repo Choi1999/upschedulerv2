@@ -1,24 +1,29 @@
 package com.sparta.upschedulerv2.config;
 
 
-
-
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 
 import java.util.Date;
 
 
-@Component
+@Component  // 필수
 public class JwtUtil {
 
-    private final String SECRET_KEY = "your-secret-key";
-    private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
-    // JWT 토큰 생성
-    public String createToken(String email) {
+    @Value("${jwt.expiration}")
+    private long EXPIRATION_TIME;
+
+    public String createToken(String email, String role) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
@@ -26,8 +31,16 @@ public class JwtUtil {
     }
 
     // JWT 토큰 검증
-    public void validateToken(String token) throws JwtException {
-        Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+            return true;
+        } catch (SignatureException e) {
+            System.out.println("잘못된 JWT 서명: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("유효하지 않은 JWT 토큰: " + e.getMessage());
+        }
+        return false;
     }
 
     // Claims 추출
@@ -38,11 +51,11 @@ public class JwtUtil {
                 .getBody();
     }
 
-    // "Bearer "를 제외한 실제 토큰 추출
+    // "Bearer " 제거
     public String substringToken(String bearerToken) {
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
-        throw new IllegalArgumentException("Invalid JWT token");
+        throw new IllegalArgumentException("잘못된 JWT 토큰 형식");
     }
 }
