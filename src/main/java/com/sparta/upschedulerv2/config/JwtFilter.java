@@ -50,7 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
             String token = jwtUtil.substringToken(bearerToken);
             jwtUtil.validateToken(token);  // 토큰 유효성 검사
-            Claims claims = jwtUtil.extractClaims(token);
+            Claims claims = jwtUtil.extractClaims(token);  // JWT 토큰에서 클레임 추출
             request.setAttribute("userEmail", claims.getSubject());  // 이메일 정보 추출
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");

@@ -1,5 +1,6 @@
 package com.sparta.upschedulerv2.user;
 
+import com.sparta.upschedulerv2.config.CurrentUser;
 import com.sparta.upschedulerv2.config.JwtUtil;
 import com.sparta.upschedulerv2.user.dto.UserRequestDto;
 import com.sparta.upschedulerv2.user.dto.UserResponseDto;
@@ -40,10 +41,8 @@ public class UserController {
 
     // 유저 정보 조회
     @GetMapping("/me")
-    public ResponseEntity<UserResponseDto> getUser(HttpServletRequest request) {
-        String userEmail = (String) request.getAttribute("userEmail");
-        UserResponseDto userResponseDto = userService.getUser(userEmail);
-        return ResponseEntity.ok(userResponseDto);
+    public ResponseEntity<String> getCurrentUser(@CurrentUser String userEmail) {
+        return ResponseEntity.ok("Current user email: " + userEmail);
     }
 
     // 유저 비밀번호 변경

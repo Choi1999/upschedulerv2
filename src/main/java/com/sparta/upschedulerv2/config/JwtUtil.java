@@ -22,7 +22,7 @@ public class JwtUtil {
 
     public String createToken(String email, String role) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(email)  // 이메일을 서브젝트로 설정
                 .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
@@ -30,14 +30,14 @@ public class JwtUtil {
                 .compact();
     }
 
+
     // JWT 토큰 검증
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);  // 토큰 검증
             return true;
-        } catch (SignatureException e) {
-            System.out.println("잘못된 JWT 서명: " + e.getMessage());
         } catch (Exception e) {
+            // 토큰이 유효하지 않은 경우 예외 처리
             System.out.println("유효하지 않은 JWT 토큰: " + e.getMessage());
         }
         return false;
