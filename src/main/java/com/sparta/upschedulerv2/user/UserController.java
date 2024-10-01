@@ -47,10 +47,10 @@ public class UserController {
 
     // 유저 비밀번호 변경
     @PutMapping("/password")
-    public ResponseEntity<Void> changePassword(@RequestBody PasswordChangeRequestDto requestDto, HttpServletRequest request) {
+    public ResponseEntity<String> changePassword(@RequestBody PasswordChangeRequestDto requestDto, HttpServletRequest request) {
         String userEmail = (String) request.getAttribute("userEmail");
         userService.changePassword(userEmail, requestDto.getNewPassword());
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("변경완료");//.status(201).build();
     }
 
     // 유저 삭제

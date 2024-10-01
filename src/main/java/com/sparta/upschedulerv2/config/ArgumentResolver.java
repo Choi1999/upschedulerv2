@@ -1,6 +1,7 @@
 package com.sparta.upschedulerv2.config;
 
 import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
 import org.springframework.format.number.money.CurrencyUnitFormatter;
 import org.springframework.stereotype.Component;
@@ -27,12 +28,10 @@ public class ArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mvContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception{
-        String token = webRequest.getHeader("Authorization");
-        if (token != null && token.startsWith("Bearer")){
-            String jwt = token.substring(7);
-            Claims claims = jwtUtil.extractClaims(jwt);
-            String email = claims.getSubject();
-            return email;
+        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+        if (request != null ){
+            String userEmail = (String) request.getAttribute("userEmail");
+            return userEmail;
         }
         return null;
     }
