@@ -52,7 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
             jwtUtil.validateToken(token);  // 토큰 유효성 검사
             Claims claims = jwtUtil.extractClaims(token);  // JWT 토큰에서 클레임 추출
             request.setAttribute("userId", claims.getSubject());  // uesrId 정보 추출
-            request.setAttribute("usernaem", claims.get("username",String.class));
+            request.setAttribute("username", claims.get("username",String.class));
             request.setAttribute("userEmail", claims.get("email", String.class));
             request.setAttribute("role", claims.get("role", String.class));
         } catch (Exception e) {
