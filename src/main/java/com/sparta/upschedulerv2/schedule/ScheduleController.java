@@ -1,5 +1,7 @@
 package com.sparta.upschedulerv2.schedule;
 
+import com.sparta.upschedulerv2.config.CurrentUser;
+import com.sparta.upschedulerv2.config.UserInfoDto;
 import com.sparta.upschedulerv2.manager.ManagerService;
 import com.sparta.upschedulerv2.manager.dto.ManagerRequestDto;
 import com.sparta.upschedulerv2.manager.dto.ManagerResponseDto;
@@ -25,8 +27,10 @@ public class ScheduleController {
 
     // 일정 생성
     @PostMapping("/{userId}")
-    public ResponseEntity<ScheduleResponseDto> createSchedule(@PathVariable Long userId, @RequestBody ScheduleRequestDto requestDto) {
-        ScheduleResponseDto createdSchedule = scheduleService.createSchedule(requestDto, userId);
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@CurrentUser UserInfoDto currentUser,
+                                                              @RequestBody ScheduleRequestDto requestDto) {
+
+        ScheduleResponseDto createdSchedule = scheduleService.createSchedule(requestDto, currentUser.getId());
         return ResponseEntity.status(201).body(createdSchedule);
     }
 

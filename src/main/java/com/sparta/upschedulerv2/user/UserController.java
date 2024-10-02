@@ -25,17 +25,18 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<UserResponseDto> register(@RequestBody UserRequestDto userRequestDto) {
         UserResponseDto user = userService.register(userRequestDto);
-        String token = jwtUtil.createToken(user.getEmail(), user.getRole());
+        String token = jwtUtil.createToken(user.getId(),user.getUsername(), user.getEmail(), user.getRole());
         return ResponseEntity.ok()
                 .header("Authorization", "Bearer " + token)  // 헤더에 JWT 토큰 추가
                 .body(user);  // User 정보 반환
     }
 
     // 로그인 및 JWT 발급
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserRequestDto requestDto) {
         UserResponseDto user = userService.authenticate(requestDto.getEmail(), requestDto.getPassword());
-        String token = jwtUtil.createToken(user.getEmail(), user.getRole());
+        String token = jwtUtil.createToken(user.getId(),user.getUsername(), user.getEmail(), user.getRole());
         return ResponseEntity.ok("Bearer " + token);
     }
 
