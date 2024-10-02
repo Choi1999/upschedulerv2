@@ -30,8 +30,11 @@ public class ArgumentResolver implements HandlerMethodArgumentResolver {
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception{
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         if (request != null ){
-            String userEmail = (String) request.getAttribute("userEmail");
-            return userEmail;
+            Long userId = Long.valueOf((String) request.getAttribute("userId"));  // ID는 서브젝트에서 추출
+            String username = (String) request.getAttribute("username");
+            String email = (String) request.getAttribute("userEmail");  // 이메일 클레임
+            String role = (String) request.getAttribute("role");  // 역할 클레임
+            return new UserInfoDto(userId, username, email, role);
         }
         return null;
     }

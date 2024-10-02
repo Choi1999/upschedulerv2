@@ -20,9 +20,11 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long EXPIRATION_TIME;
 
-    public String createToken(String email, String role) {
+    public String createToken(Long id,String username, String email, String role) {
         return Jwts.builder()
-                .setSubject(email)  // 이메일을 서브젝트로 설정
+                .setSubject(String.valueOf(id))
+                .claim("username", username)
+                .claim("email",email)// 이메일을 서브젝트로 설정
                 .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
